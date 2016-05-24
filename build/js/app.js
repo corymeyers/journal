@@ -1,1 +1,47 @@
-!function e(t,n,r){function o(i,s){if(!n[i]){if(!t[i]){var u="function"==typeof require&&require;if(!s&&u)return u(i,!0);if(a)return a(i,!0);var c=new Error("Cannot find module '"+i+"'");throw c.code="MODULE_NOT_FOUND",c}var f=n[i]={exports:{}};t[i][0].call(f.exports,function(e){var n=t[i][1][e];return o(n?n:e)},f,f.exports,e,t,n,r)}return n[i].exports}for(var a="function"==typeof require&&require,i=0;i<r.length;i++)o(r[i]);return o}({1:[function(e,t,n){var r=e("./../js/message.js").Message;$(document).ready(function(){$("#email").submit(function(e){e.preventDefault();var t=$("#to").val(),n=$("#from").val(),o=$("#message").val(),a=new r(t,n,o);$("#result").append("<li>"+a.read()+"</li>")})})},{"./../js/message.js":2}],2:[function(e,t,n){n.Message=function(e,t,n){this.to=e,this.from=t,this.messageText=n},n.Message.prototype.read=function(){return"Dear"+this.to+","+this.messageText+"Yours truely,"+this.from}},{}],3:[function(e,t,n){$(document).ready(function(){$("#time").text(moment())})},{}],4:[function(e,t,n){var r="";$(document).ready(function(){$("#weatherLocation").click(function(){var e=$("#location").val();$("#location").val(""),$(".showWeather").text("The city you have chosen is"+e+"."),$.get("http://api.openweathermap.org/data/2.5/weather?q="+e+"&appid"+r,function(e){console.log(e)})})})},{}]},{},[1,3,4]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Message = require('./../js/message.js').Message;
+$(document).ready(function() {
+  $('#email').submit(function(event){
+    event.preventDefault();
+    var toField = $('#to').val();
+    var fromField = $('#from').val();
+    var messageField = $('#message').val();
+
+    var newMessage = new Message(toField, fromField, messageField);
+    // console.log(newMessage.read());
+    $('#result').append("<li>" + newMessage.read() + "</li>");
+  });
+});
+
+},{"./../js/message.js":2}],2:[function(require,module,exports){
+exports.Message = function(to, from, messageText) {
+  this.to = to;
+  this.from = from;
+  this.messageText = messageText;
+}
+
+exports.Message.prototype.read = function() {
+  return "Dear" + this.to + "," + this.messageText + "Yours truely," + this.from;
+}
+
+},{}],3:[function(require,module,exports){
+$(document).ready(function(){
+  $('#time').text(moment());
+  // console.log(moment());
+});
+
+},{}],4:[function(require,module,exports){
+var apiKey = "";
+
+$(document).ready(function() {
+  $('#weatherLocation').click(function() {
+    var city = $('#location').val();
+    $('#location').val("");
+    $('.showWeather').text("The city you have chosen is" + city + ".");
+    $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid' + apiKey, function(response){
+      console.log(response);
+    });
+  });
+});
+
+},{}]},{},[1,3,4]);

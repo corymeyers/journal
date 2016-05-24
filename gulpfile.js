@@ -1,9 +1,12 @@
+var utilities = require('gulp-util');
 var gulp = require("gulp");
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var browserSync = require('browser-sync').create();
+
+var buildProduction = utilities.env.production;
 
 gulp.task('jsBrowserify', ['concatInterface'], function() {
   return browserify({ entries: ['./js/message-interface.js', './js/time-interface.js', './js/weather-interface.js'] })
@@ -42,4 +45,12 @@ gulp.task('jsBuild', ['jsBrowserify', 'jshint'], function(){
 
 gulp.task('htmlBuild', function() {
   browserSync.reload();
+});
+
+gulp.task("build", function(){
+  if (buildProduction) {
+    gulp.start('minifyScripts');
+  } else {
+    gulp.start('jsBrowserify');
+  }
 });
