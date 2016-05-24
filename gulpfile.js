@@ -7,15 +7,24 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var jshint = require('gulp-jshint');
 var browserSync = require('browser-sync').create();
+var del = require('del');
 
 var buildProduction = utilities.env.production;
 
+gulp.task('concatInterface', function(){
+  return gulp.src(['./js/*-interface.js'])
+  .pipe(concat('allConcat.js'))
+  .pipe(gulp.dest('./tmp'));
+});
+
 gulp.task('jsBrowserify', ['concatInterface'], function() {
-  return browserify({ entries: ['./js/message-interface.js', './js/time-interface.js', './js/weather-interface.js'] })
+  return browserify({ entries: ['./tmp/allConcat.js'] })
     .bundle()
     .pipe(source('app.js'))
     .pipe(gulp.dest('./build/js'));
 });
+
+
 
 gulp.task("minifyScripts", ["jsBrowserify"], function(){
   return gulp.src("./build/js/app.js")
@@ -39,12 +48,6 @@ gulp.task('jshint', function(){
   return gulp.src(['js/*.js'])
   .pipe(jshint())
   .pipe(jshint.reporter('default'))
-})
-
-gulp.task('concatInterface', function(){
-  return gulp.src(['./js/*-interface.js'])
-  .pipe(concat('allConcat.js'))
-  .pipe(gulp.dest('./tmp'));
 });
 
 gulp.task('jsBuild', ['jsBrowserify', 'jshint'], function(){
@@ -65,4 +68,5 @@ gulp.task("build", ['clean'], function(){
   } else {
     gulp.start('jsBrowserify');
   }
+  // gulp.start('bowerBuild');
 });
