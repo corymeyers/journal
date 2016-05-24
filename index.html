@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="build/js/app.js"></script>
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="build/js/app.js"></script>
 </head>
 <body>
 
@@ -14,25 +18,14 @@
     <label for="message">Message:</label>
     <input type="text" id="message" name="messageInputTag">
     <button type="submit" name="send">send</button>
-
-
   </form>
 
 
+  <h3 id="time"></h3>
 
+  <ul id="result">
 
-
-
-
-
-
-
-
-
-
-
-
-
+  </ul>
 
 </body>
 </html>

@@ -6,7 +6,8 @@ $(document).ready(function() {
     var fromField = $('#from').val();
     var messageField = $('#message').val();
 
-    var = newMessage = new Message(toField, fromField, messageField);
-    console.log(newMessage.read());
+    var newMessage = new Message(toField, fromField, messageField);
+    // console.log(newMessage.read());
+    $('#result').append("<li>" + newMessage.read() + "</li>");
   });
 });
